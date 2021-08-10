@@ -1,0 +1,10 @@
+.vscode/settings.json
+*.o
+*.out
+*.out.*
+*.lst
+*.exe
+*.gcno
+*.gcda
+*.xml
+*.html
