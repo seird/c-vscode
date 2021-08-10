@@ -1,4 +1,8 @@
-[![codecov](https://codecov.io/gh/seird/c-vscode/branch/master/graph/badge.svg)](https://codecov.io/gh/seird/c-vscode)
+[![build](https://github.com/seird/c-vscode/actions/workflows/build.yml/badge.svg)](https://github.com/seird/c-vscode/actions) [![codecov](https://codecov.io/gh/seird/c-vscode/branch/master/graph/badge.svg)](https://codecov.io/gh/seird/c-vscode)
+
+
+
+
 
 .vscode/ folder and makefile for a simple c project
 
