@@ -8,6 +8,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+    - name: Install gcovr
+      run: |
+        sudo apt-get -y install gcovr
     - name: Test
       run: |
         gcc --version
@@ -17,6 +20,14 @@ jobs:
   build_windows:
     runs-on: windows-latest
     needs: test
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+          python-version: 3.8
+    - name: Upgrade pip and
+      run: python -m pip install --upgrade pip
+    - name: Install gcovr
+      run: pip install gcovr
     steps:
     - uses: actions/checkout@v2
     - name: Set up MinGW
@@ -43,6 +54,9 @@ jobs:
     needs: test
     steps:
     - uses: actions/checkout@v2
+    - name: Install gcovr
+      run: |
+        sudo apt-get -y install gcovr
     - name: Build
       run: |
         gcc --version
