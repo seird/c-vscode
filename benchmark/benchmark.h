@@ -45,8 +45,18 @@
 
 
 #if __linux__
+/**
+ * Run a benchmark
+ * @param function   The function to be benchmarked
+ * @param iterations The number of times to run the function
+ */
 #define BENCH_RUN _BENCH_RUN_LIN
 #else
+/**
+ * Run a benchmark
+ * @param function   The function to be benchmarked
+ * @param iterations The number of times to run the function
+ */
 #define BENCH_RUN _BENCH_RUN_WIN
 #endif
 
