@@ -4,17 +4,16 @@ CFLAGS_RELEASE = -O3 -Wall -Wextra -Werror -Wshadow -march=native
 CFLAGS_TEST = -O0 -Wall -Wextra -Werror -Wshadow -march=native -fprofile-arcs -ftest-coverage
 CFLAGS_LIBRARY = -O3 -Wall -Wextra -Werror -Wshadow -march=native
 
-FILES = src/main.c
+FILES = \
+	$(wildcard src/*.c) \
 
 FILES_TEST = \
 	$(FILES) \
-	tests/test_something.c \
-	tests/tests.c \
+	$(wildcard tests/*.c) \
 
 FILES_BENCH = \
 	$(FILES) \
-	benchmark/bench_something.c \
-	benchmark/benchmarks.c \
+	$(wildcard benchmark/*.c) \
 
 PNAME   ?= name
 LIBTYPE ?= STATIC
