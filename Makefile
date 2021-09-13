@@ -87,6 +87,18 @@ debug:
 profile: debug
 	valgrind --tool=callgrind ./$(PNAME)_debug
 
+gprof:
+	$(CC) $(CFLAGS_DEBUG) -pg $(FILES) -o $(PNAME)_gprof -lm
+ifeq ($(PLATFORM_OS),WINDOWS)
+	del gmon.out /s
+	./$(PNAME)_gprof.exe
+	gprof $(PNAME)_gprof.exe gmon.out > a_debug-gprof.out
+else
+	rm -fv gmon.out
+	./$(PNAME)_gprof
+	gprof $(PNAME)_gprof gmon.out > a_debug-gprof.out
+endif
+
 memcheck: debug
 	valgrind --leak-check=full ./$(PNAME)_debug
 
