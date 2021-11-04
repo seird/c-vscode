@@ -22,25 +22,7 @@ LIBTYPE ?= STATIC
 ifeq ($(OS),Windows_NT)
 	PLATFORM_OS = WINDOWS
 else
-	UNAMEOS = $(shell uname)
-	ifeq ($(UNAMEOS),Linux)
-		PLATFORM_OS = LINUX
-	endif
-	ifeq ($(UNAMEOS),FreeBSD)
-		PLATFORM_OS = BSD
-	endif
-	ifeq ($(UNAMEOS),OpenBSD)
-		PLATFORM_OS = BSD
-	endif
-	ifeq ($(UNAMEOS),NetBSD)
-		PLATFORM_OS = BSD
-	endif
-	ifeq ($(UNAMEOS),DragonFly)
-		PLATFORM_OS = BSD
-	endif
-	ifeq ($(UNAMEOS),Darwin)
-		PLATFORM_OS = OSX
-	endif
+	PLATFORM_OS = LINUX
 endif
 
 
@@ -70,10 +52,10 @@ endif
 
 
 build: 
-	$(CC) $(DIRS_INCLUDE) $(DIRS_LIB) $(CFLAGS_RELEASE) $(FILES) -o $(PNAME)_release
+	$(CC) -o $(PNAME)_release $(FILES) $(DIRS_INCLUDE) $(DIRS_LIB) $(CFLAGS_RELEASE)
 
 library:
-	$(CC) $(DIRS_INCLUDE) $(DIRS_LIB) $(CFLAGS_LIBRARY) $(FILES)
+	$(CC) $(FILES) $(DIRS_INCLUDE) $(DIRS_LIB) $(CFLAGS_LIBRARY)
 ifeq ($(LIBTYPE),STATIC)
 	ar -rc $(LIBNAME) *.o
 endif
@@ -82,13 +64,13 @@ run: build
 	./$(PNAME)_release
 
 debug:
-	$(CC) $(DIRS_INCLUDE) $(DIRS_LIB) $(CFLAGS_DEBUG) $(FILES) -o $(PNAME)_debug 
+	$(CC) -o $(PNAME)_debug $(FILES) $(DIRS_INCLUDE) $(DIRS_LIB) $(CFLAGS_DEBUG)
 
 profile: debug
 	valgrind --tool=callgrind ./$(PNAME)_debug
 
 gprof:
-	$(CC) $(CFLAGS_DEBUG) -pg $(FILES) -o $(PNAME)_gprof -lm
+	$(CC) -o $(PNAME)_gprof $(FILES) $(CFLAGS_DEBUG) -pg -lm
 ifeq ($(PLATFORM_OS),WINDOWS)
 	del gmon.out /s
 	./$(PNAME)_gprof.exe
@@ -107,17 +89,17 @@ cache: build
 	#cg_annotate cachegrind.out.{PID}
 
 test:
-	$(CC) $(DIRS_INCLUDE) $(DIRS_LIB) $(CFLAGS_TEST) -DTEST $(FILES_TEST) -o test
+	$(CC) -o test -DTEST $(FILES_TEST) $(DIRS_INCLUDE) $(DIRS_LIB) $(CFLAGS_TEST)
 	./test
 	gcovr -e "tests/*" --xml-pretty --exclude-unreachable-branches --print-summary -o coverage.xml
 
 coverage_html:
-	$(CC) $(DIRS_INCLUDE) $(DIRS_LIB) $(CFLAGS_TEST) -DTEST $(FILES_TEST) -o test
+	$(CC) -o test -DTEST $(FILES_TEST) $(DIRS_INCLUDE) $(DIRS_LIB) $(CFLAGS_TEST)
 	./test
 	gcovr -e "tests/*" --html --html-details --print-summary -o coverage.html
 
 bench:
-	$(CC) $(DIRS_INCLUDE) $(DIRS_LIB) $(CFLAGS_RELEASE) -DBENCHMARK $(FILES_BENCH) -o benchmark
+	$(CC) -o benchmark -DBENCHMARK $(FILES_BENCH) $(DIRS_INCLUDE) $(DIRS_LIB) $(CFLAGS_RELEASE)
 	./benchmark
 
 clean:
