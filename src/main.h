@@ -4,6 +4,11 @@
 #include <stdio.h>
 
 
+/**
+ * @brief This function returns 1
+ * 
+ * @return int 
+ */
 int return_1();
 
 

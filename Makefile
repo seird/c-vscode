@@ -27,13 +27,13 @@ endif
 
 
 ifeq ($(LIBTYPE),SHARED)
-    CFLAGS_LIBRARY += -fPIC -shared -DSHARED -o $(LIBNAME)
 	ifeq ($(PLATFORM_OS),WINDOWS)
 		LIBNAME = lib$(PNAME).dll
 	endif
 	ifeq ($(PLATFORM_OS),LINUX)
 		LIBNAME = lib$(PNAME).so
 	endif
+    CFLAGS_LIBRARY = -o $(LIBNAME) -fPIC -shared -DSHARED $(CFLAGS_LIBRARY)
 endif
 ifeq ($(LIBTYPE),STATIC)
     CFLAGS_LIBRARY += -c -DSTATIC

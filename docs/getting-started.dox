@@ -1,0 +1,18 @@
+/*! \page getting-started Getting Started
+
+
+\section sec-src Get the source code
+
+\code{bash}
+git clone https://github.com/seird/c-vscode
+cd c-vscode
+\endcode
+
+
+\section sec-run-test Run tests:
+
+\code{bash}
+$ make test
+\endcode
+
+*/
