@@ -57,7 +57,7 @@ extern int tests_result;
  * @param f2 The second number
  */
 #define MU_CHECK_DBL_EQ(d1, d2) do {\
-    if (fabsf((float)(d1) - (float)(d2)) > FLT_EPSILON) {\
+    if (fabs((double)(d1) - (double)(d2)) > FLT_EPSILON) {\
         printf("%s failed:\n\t%s:%d : %f != %f\n\n", __func__, __FILE__, __LINE__, (double)d1, (double)d2);\
         tests_result = 1;\
     }\
@@ -70,7 +70,7 @@ extern int tests_result;
  * @param error The allowed range
  */
 #define MU_CHECK_DBL_EQ_ERROR(d1, d2, error) do {\
-    if (fabsf((float)(d1) - (float)(d2)) > (double)error) {\
+    if (fabs((double)(d1) - (double)(d2)) > (double)error) {\
         printf("%s failed:\n\t%s:%d : %f != %f\n\n", __func__, __FILE__, __LINE__, (double)d1, (double)d2);\
         tests_result = 1;\
     }\
